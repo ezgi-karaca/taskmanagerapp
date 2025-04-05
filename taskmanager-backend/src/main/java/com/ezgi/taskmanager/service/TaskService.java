@@ -28,14 +28,18 @@ public class TaskService {
     @Autowired
     private JavaMailSender mailSender;
 
-
-
     @Autowired
     private TaskRepository taskRepository;
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private NotificationService notificationService;
+
 
     public TaskResponseDto convertToDto(Task task) {
         TaskResponseDto dto = new TaskResponseDto();
@@ -83,7 +87,6 @@ public class TaskService {
 
         Task savedTask = taskRepository.save(task);
 
-        // ✉️ E-posta gönderimi
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -129,6 +132,12 @@ public class TaskService {
             System.out.println("Email could not be sent: " + e.getMessage());
         }
 
+        notificationService.sendNotification(
+                "New Task Assigned",
+                "Task: " + task.getTitle() + " has been assigned to " + user.getUsername()
+        );
+
+
         return savedTask;
     }
 
@@ -156,7 +165,24 @@ public class TaskService {
     }
 
     public Task updateTask(Task updatedTask) {
-        return taskRepository.save(updatedTask);
+
+        Task existingTask = taskRepository.findById(updatedTask.getId())
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+
+        existingTask.setTitle(updatedTask.getTitle());
+        existingTask.setDescription(updatedTask.getDescription());
+        existingTask.setDueDate(updatedTask.getDueDate());
+        existingTask.setStatus(updatedTask.getStatus());
+        existingTask.setEmployeeComment(updatedTask.getEmployeeComment());
+
+        Task saved = taskRepository.save(existingTask);
+
+        notificationService.sendNotification(
+                "Task Updated",
+                "Task: " + saved.getTitle() + " has been updated."
+        );
+
+        return saved;
     }
 
     public void deleteTask(Long id) {
@@ -168,6 +194,12 @@ public class TaskService {
                 new RuntimeException("Task not found"));
         task.setStatus(TaskStatus.COMPLETED);
         task.setEmployeeComment(comment);
+
+        notificationService.sendNotification(
+                "Task Completed",
+                "Task: " + task.getTitle() + " has been completed by " + task.getAssignedTo().getUsername()
+        );
+
         return taskRepository.save(task);
     }
 
@@ -175,6 +207,12 @@ public class TaskService {
         Task task = taskRepository.findById(taskId).orElseThrow(() ->
                 new RuntimeException("Task not found"));
         task.setStatus(TaskStatus.IN_PROGRESS);
+
+        notificationService.sendNotification(
+                "Task In Progress",
+                "Task: " + task.getTitle() + " is now in progress by " + task.getAssignedTo().getUsername()
+        );
+
         return taskRepository.save(task);
     }
 
