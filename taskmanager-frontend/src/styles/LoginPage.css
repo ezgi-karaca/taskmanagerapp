@@ -50,14 +50,14 @@ body, html {
 
 .login-form input:focus {
   outline: none;
-  background-color: #eaddff; /* açık mor ton */
+  background-color: #eaddff; 
   box-shadow: 0 0 0 2px #9575cd;
 }
 
 .login-form button {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(90deg, #7e57c2, #a1887f); /* mor - sütlü kahve geçiş */
+  background: linear-gradient(90deg, #7e57c2, #a1887f);
   color: white;
   border: none;
   border-radius: 10px;
