@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final UserService userService;
 
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
@@ -38,9 +40,13 @@ public class TaskController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/my")
-    public ResponseEntity<List<TaskResponseDto>> getMyTasks(@AuthenticationPrincipal User user) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<TaskResponseDto>> getMyTasks(Principal principal) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         List<Task> tasks = taskService.getTasksByUser(user);
         return ResponseEntity.ok(taskService.convertToDtoList(tasks));
     }

@@ -11,6 +11,7 @@
   padding: 12px 32px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   height: 50px;
+  position: relative;
 }
 
 .navbar-left {
@@ -46,7 +47,7 @@
 }
 
 .navbar-center button:hover {
-  color: #7e57c2;
+  color: #dcd0ef;
   transform: translateY(-1px);
 }
 
@@ -84,4 +85,24 @@
 
 .logout-btn:hover {
   background-color: #5e35b1;
+}
+
+.notification-icon {
+  position: relative;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  border: 2px solid white;
 }

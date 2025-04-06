@@ -7,6 +7,7 @@ function ProjectList() {
   const [projects, setProjects] = useState([]);
   const [expandedProjectId, setExpandedProjectId] = useState(null);
   const [role, setRole] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -77,14 +78,27 @@ function ProjectList() {
     }
   };
 
+  const filteredProjects = projects.filter((project) =>
+    project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="project-list">
       <h2>📋 Projects and Tasks</h2>
 
-      {projects.length === 0 ? (
-        <p>There is no project for now.</p>
+      <input
+        type="text"
+        placeholder="🔍 Search projects..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+      />
+
+      {filteredProjects.length === 0 ? (
+        <p>No matching projects found.</p>
       ) : (
-        projects.map((project) => (
+        filteredProjects.map((project) => (
           <div key={project.id} className="project-card">
             <div className="project-header" onClick={() => handleExpand(project.id)}>
               <h3>{project.name}</h3>
@@ -99,11 +113,16 @@ function ProjectList() {
                 <ul className="task-list">
                   {project.tasks && project.tasks.length > 0 ? (
                     project.tasks.map((task) => (
-                      <li key={task.id}>
-                        <strong>{task.title}</strong> — {task.status}
-                        <br />
-        <span className="assigned-to">👤 Assigned to: {task.assignedTo?.username || "Unassigned"}</span>
-                        
+                      <li key={task.id} className="task-item">
+                        <div className="task-info">
+                          <strong>{task.title}</strong>
+                          <span className={`task-status ${task.status.toLowerCase()}`}>
+                            {task.status.replace("_", " ")}
+                          </span>
+                        </div>
+                        <div className="assigned-to">
+                          👤 Assigned to: {task.assignedTo?.username || "Unassigned"}
+                        </div>
                       </li>
                     ))
                   ) : (

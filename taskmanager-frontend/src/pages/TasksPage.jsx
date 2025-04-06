@@ -1,26 +1,36 @@
 import React, { useState } from "react";
 import MyTasks from "../components/MyTasks";
 import AllTasks from "../components/AllTasks";
-import CreateTask from "../components/CreateTask";
 import "../styles/TasksPage.css";
 
 function TasksPage({ role }) {
-  const [activeSection, setActiveSection] = useState("my");
+  const [activeTab, setActiveTab] = useState("all");
 
   return (
-    <div className="tasks-layout">
-      <aside className="sidebar">
-        <button onClick={() => setActiveSection("my")}>🗂️ My Tasks</button>
-        <button onClick={() => setActiveSection("all")}>📋 All Tasks</button>
-        {role === "MANAGER" && (
-          <button onClick={() => setActiveSection("create")}>➕ Create Task</button>
+    <div className="tasks-page">
+      <div className="tasks-tabs">
+        
+        {(
+          <button
+            className={activeTab === "all" ? "active" : ""}
+            onClick={() => setActiveTab("all")}
+          >
+            📋 All Tasks
+          </button>
         )}
-      </aside>
 
-      <div className="content">
-        {activeSection === "my" && <MyTasks />}
-        {activeSection === "all" && <AllTasks />}
-        {activeSection === "create" && role === "MANAGER" && <CreateTask />}
+<button
+          className={activeTab === "my" ? "active" : ""}
+          onClick={() => setActiveTab("my")}
+        >
+          🧑‍💻 My Tasks
+        </button>
+      </div>
+
+      <div className="tasks-content">
+        {activeTab === "all" && <AllTasks />}
+        {activeTab === "my" && <MyTasks />}
+        
       </div>
     </div>
   );

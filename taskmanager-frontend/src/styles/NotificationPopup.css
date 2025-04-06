@@ -1,0 +1,39 @@
+.notification-popup {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  z-index: 9999;
+}
+
+.notification-popup.show {
+  display: block;
+}
+
+.popup-content {
+  background-color: #fff8e1;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 280px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.popup-content h4 {
+  margin: 0 0 10px;
+  color: #6a49ae;
+  font-size: 18px;
+}
+
+.popup-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.popup-content li {
+  padding: 6px 0;
+  font-size: 14px;
+  color: #4e342e;
+  border-bottom: 1px solid #e0e0e0;
+}

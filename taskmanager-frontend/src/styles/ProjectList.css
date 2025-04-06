@@ -9,13 +9,31 @@
   color: #4e342e;
 }
 
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #6a49ae;
+  box-shadow: 0 0 0 2px rgba(106, 73, 174, 0.2);
+}
+
 .project-card {
   border: 1px solid #ddd;
   padding: 16px;
   margin-bottom: 15px;
   border-radius: 10px;
   background-color: #fefefe;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .project-header {
@@ -34,16 +52,58 @@
 
 .task-list {
   margin-top: 10px;
-  padding-left: 20px;
-  list-style-type: square;
+  padding-left: 0;
+  list-style-type: none;
 }
 
-.task-list li {
-  margin-bottom: 8px;
+.task-item {
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background-color: #f9f9fb;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
 }
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.task-status {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.task-status.pending {
+  background-color: #ffcc8040;
+  color: #fb8c00;
+}
+
+.task-status.in_progress {
+  background-color: #42a5f540;
+  color: #1e88e5;
+}
+
+.task-status.completed {
+  background-color: #66bb6a40;
+  color: #2e7d32;
+}
+
+.task-item:hover {
+  background-color: #f3f3f7;
+  transition: background-color 0.2s ease;
+}
+
 
 .assigned-to {
-  font-size: 0.9em;
+  font-size: 13px;
   color: #666;
+  margin-top: 4px;
 }
-

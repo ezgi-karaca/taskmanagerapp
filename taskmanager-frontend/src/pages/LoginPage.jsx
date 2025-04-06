@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/LoginPage.css";
 import { login } from "../api/api";
+import { toast } from "react-toastify";
 
 function LoginPage({ setIsAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -13,12 +14,13 @@ function LoginPage({ setIsAuthenticated }) {
     try {
       const response = await login({ username, password });
       localStorage.setItem("token", response.data);
-
       setIsAuthenticated(true);
-      navigate("/dashboard", { replace: true });
 
+      toast.success("🎉 Successfully logged in!");
+
+      navigate("/dashboard", { replace: true });
     } catch (error) {
-      alert("Login failed. Please check your credentials.");
+      toast.error("❌ Login failed. Check your credentials.");
       console.error(error);
     }
   };
@@ -42,6 +44,9 @@ function LoginPage({ setIsAuthenticated }) {
           required
         />
         <button type="submit">Sign In</button>
+        <p className="register-link">
+          Don’t have an account? <Link to="/register">Register</Link>
+        </p>
       </form>
     </div>
   );

@@ -2,49 +2,29 @@
   padding: 20px;
 }
 
-.task-table-container h2 {
-  font-size: 22px;
-  font-weight: 600;
-  color: #2e2e2e;
-  margin-bottom: 20px;
-  font-family: "Segoe UI", sans-serif;
-}
-
 .task-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: "Segoe UI", sans-serif;
+  font-family: sans-serif;
   font-size: 14px;
-  border: 1px solid #dcdcdc;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .task-table th,
 .task-table td {
-  border-bottom: 1px solid #ececec;
-  padding: 12px 14px;
+  border: 1px solid #ddd;
+  padding: 10px;
   vertical-align: top;
   text-align: left;
 }
 
 .task-table th {
-  background-color: #f8f8fb;
-  font-weight: 600;
-  color: #444;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background-color: #f2f2f2;
+  font-weight: bold;
 }
 
-.task-table tbody tr:hover {
-  background-color: #f7f3f8;
-}
-
-.task-row.todo {
+.task-row.pending {
   background-color: white;
-  border-left: 4px solid #bdbdbd;
+  border-left: 4px solid #ffb74d;
 }
 
 .task-row.in_progress {
@@ -78,9 +58,11 @@
   box-shadow: 0 0 0 2px rgba(106, 73, 174, 0.2);
 }
 
+
+
 select {
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 13px;
   border: 1px solid #bbb;
   background-color: white;
@@ -98,13 +80,13 @@ button {
   background-color: #6a49ae;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 13px;
 }
 
 button:hover {
-  background-color: #8b7ab5;
+  background-color: #53388c;
 }
 
 .comment-list {
@@ -131,3 +113,19 @@ td textarea,
 td button {
   display: block;
 }
+
+.task-row.pending:hover {
+  background-color: #fff3e0;
+  transition: background-color 0.2s ease;
+}
+
+.task-row.in_progress:hover {
+  background-color: #e3f2fd;
+  transition: background-color 0.2s ease;
+}
+
+.task-row.completed:hover {
+  background-color: #e8f5e9; 
+  transition: background-color 0.2s ease;
+}
+

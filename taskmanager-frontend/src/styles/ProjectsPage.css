@@ -24,12 +24,21 @@
   font-size: 16px;
   border-radius: 6px;
   margin-bottom: 10px;
-  transition: 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #333; 
+  font-weight: 500;
 }
 
 .sidebar button:hover {
-  background-color: #e0e0e0;
+  background-color: #ddd;
+  color: #000;
 }
+
+.sidebar button.active {
+  background-color: #6a49ae;
+  color: white;
+}
+
 
 .content {
   flex: 1;

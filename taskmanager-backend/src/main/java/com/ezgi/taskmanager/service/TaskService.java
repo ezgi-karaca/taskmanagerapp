@@ -134,8 +134,10 @@ public class TaskService {
 
         notificationService.sendNotification(
                 "New Task Assigned",
-                "Task: " + task.getTitle() + " has been assigned to " + user.getUsername()
+                "Task: " + task.getTitle() + " has been assigned to you.",
+                user
         );
+
 
 
         return savedTask;
@@ -179,8 +181,10 @@ public class TaskService {
 
         notificationService.sendNotification(
                 "Task Updated",
-                "Task: " + saved.getTitle() + " has been updated."
+                "Task: " + saved.getTitle() + " has been updated.",
+                saved.getAssignedTo()
         );
+
 
         return saved;
     }
@@ -197,8 +201,10 @@ public class TaskService {
 
         notificationService.sendNotification(
                 "Task Completed",
-                "Task: " + task.getTitle() + " has been completed by " + task.getAssignedTo().getUsername()
+                "Task: " + task.getTitle() + " has been completed by " + task.getAssignedTo().getUsername(),
+                task.getAssignedTo()
         );
+
 
         return taskRepository.save(task);
     }
@@ -210,8 +216,10 @@ public class TaskService {
 
         notificationService.sendNotification(
                 "Task In Progress",
-                "Task: " + task.getTitle() + " is now in progress by " + task.getAssignedTo().getUsername()
+                "Task: " + task.getTitle() + " is now in progress by " + task.getAssignedTo().getUsername(),
+                task.getAssignedTo()
         );
+
 
         return taskRepository.save(task);
     }
