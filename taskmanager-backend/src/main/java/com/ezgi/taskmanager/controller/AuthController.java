@@ -52,12 +52,14 @@ public class AuthController {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.valueOf("ROLE_" + user.getRole()));
+        user.setRole(user.getRole());
+
 
         userRepository.save(user);
 
         return ResponseEntity.ok("User registered successfully!");
     }
+
     @PostMapping("/login")
     public String login(@RequestBody User loginRequest) {
         authenticationManager.authenticate(
