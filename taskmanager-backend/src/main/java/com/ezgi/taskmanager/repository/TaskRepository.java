@@ -30,6 +30,25 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "OR LOWER(t.description) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Task> findByKeyword(@Param("keyword") String keyword);
 
+    @Query("SELECT t FROM Task t ORDER BY " +
+            "CASE " +
+            "WHEN t.status = 'PENDING' THEN 1 " +
+            "WHEN t.status = 'IN_PROGRESS' THEN 2 " +
+            "WHEN t.status = 'COMPLETED' THEN 3 " +
+            "ELSE 4 END, " +
+            "t.dueDate ASC")
+    List<Task> findAllSortedByStatusAndDueDate();
+
+    @Query("SELECT t FROM Task t WHERE t.assignedTo = :user ORDER BY " +
+            "CASE " +
+            "WHEN t.status = 'PENDING' THEN 1 " +
+            "WHEN t.status = 'IN_PROGRESS' THEN 2 " +
+            "WHEN t.status = 'COMPLETED' THEN 3 " +
+            "ELSE 4 END, " +
+            "t.dueDate ASC")
+    List<Task> findByAssignedToOrderByStatusAndDueDate(@Param("user") User user);
+
+
 
 
 

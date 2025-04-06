@@ -151,6 +151,15 @@ public class TaskService {
         return savedTask;
     }
 
+    public List<Task> getAllSortedTasks() {
+        return taskRepository.findAllSortedByStatusAndDueDate();
+    }
+
+    public List<Task> getTasksByUserSorted(User user) {
+        return taskRepository.findByAssignedToOrderByStatusAndDueDate(user);
+    }
+
+
 
 
 

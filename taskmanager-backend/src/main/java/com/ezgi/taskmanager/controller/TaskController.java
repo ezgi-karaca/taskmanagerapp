@@ -37,22 +37,23 @@ public class TaskController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping
-    public ResponseEntity<List<TaskResponseDto>> getAllTasks() {
-        List<Task> tasks = taskService.getAllTasks();
-        return ResponseEntity.ok(taskService.convertToDtoList(tasks));
+    public List<TaskResponseDto> getAllTasks() {
+        List<Task> tasks = taskService.getAllSortedTasks();
+        return taskService.convertToDtoList(tasks);
     }
 
 
-    @GetMapping("/my")
+
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<TaskResponseDto>> getMyTasks(Principal principal) {
-        String username = principal.getName();
-        User user = userService.findByUsername(username)
+    @GetMapping("/my")
+    public List<TaskResponseDto> getMyTasks(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Task> tasks = taskService.getTasksByUser(user);
-        return ResponseEntity.ok(taskService.convertToDtoList(tasks));
+        List<Task> tasks = taskService.getTasksByUserSorted(user);
+        return taskService.convertToDtoList(tasks);
     }
+
 
 
     @PreAuthorize("isAuthenticated()")

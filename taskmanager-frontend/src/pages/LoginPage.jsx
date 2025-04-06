@@ -11,6 +11,7 @@ function LoginPage({ setIsAuthenticated }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    
     try {
       const response = await login({ username, password });
       localStorage.setItem("token", response.data);

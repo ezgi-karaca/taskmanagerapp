@@ -23,15 +23,24 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("❗ Please enter a valid email address.");
+      return;
+    }
+
     try {
       await axios.post("http://localhost:8080/api/auth/register", formData);
-
       toast.success("🚀 Registration successful! Redirecting...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
-      console.error(err);
-      toast.error("❌ Registration failed. Check your details.");
+      if (err.response?.status === 409) {
+        toast.error(`❌ ${err.response.data}`);
+      } else {
+        toast.error("❌ Registration failed. Please check your details.");
+      }
     }
+    
   };
 
   return (
