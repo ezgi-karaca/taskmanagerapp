@@ -13,6 +13,7 @@ public class TaskResponseDto {
     private LocalDate dueDate;
     private TaskStatus status;
     private String employeeComment;
+    private String createdByUsername;
 
     private AssignedUserDto assignedTo;
     private TaskProjectDto project;

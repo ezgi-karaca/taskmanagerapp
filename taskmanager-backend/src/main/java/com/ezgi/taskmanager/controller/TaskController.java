@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -26,10 +27,12 @@ public class TaskController {
 
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping
-    public ResponseEntity<TaskResponseDto> createTask(@RequestBody Task task) {
-        Task saved = taskService.createTask(task);
-        return ResponseEntity.ok(taskService.convertToDto(saved));
+    public TaskResponseDto createTask(@RequestBody Task task,
+                                      @AuthenticationPrincipal UserDetails userDetails) {
+        Task created = taskService.createTask(task, userDetails.getUsername());
+        return taskService.convertToDto(created);
     }
+
 
 
     @PreAuthorize("isAuthenticated()")

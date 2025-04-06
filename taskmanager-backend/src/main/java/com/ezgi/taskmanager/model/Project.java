@@ -22,6 +22,11 @@ public class Project {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "created_by_id")
+    private User createdBy;
+
+
     private String description;
 
     private LocalDate startDate;

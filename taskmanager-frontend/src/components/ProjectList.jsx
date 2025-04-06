@@ -103,6 +103,7 @@ function ProjectList() {
             <div className="project-header" onClick={() => handleExpand(project.id)}>
               <h3>{project.name}</h3>
               <p>{project.description}</p>
+              <p className="created-by">👤 Created by: {project.createdByUsername}</p>
               <span>
                 {expandedProjectId === project.id ? "🔼 Close" : "🔽 Show Tasks"}
               </span>

@@ -127,6 +127,7 @@ function MyTasks() {
             <th>Status</th>
             <th>Due Date</th>
             <th>Assigned To</th>
+            <th><strong>Assigned By</strong></th>
             <th>Comments</th>
             <th>Add Comment</th>
           </tr>
@@ -148,6 +149,7 @@ function MyTasks() {
               </td>
               <td>{task.dueDate}</td>
               <td>{task.assignedTo?.username}</td>
+              <td><strong>{task.createdByUsername}</strong></td>
               <td>
                 {comments[task.id]?.length > 0 ? (
                   <ul className="comment-list">

@@ -61,6 +61,10 @@ public class TaskService {
         projectDto.setName(task.getProject().getName());
         dto.setProject(projectDto);
 
+        if (task.getCreatedBy() != null) {
+            dto.setCreatedByUsername(task.getCreatedBy().getUsername());
+        }
+
         return dto;
     }
 
@@ -72,7 +76,7 @@ public class TaskService {
 
 
 
-    public Task createTask(Task task) {
+    public Task createTask(Task task, String creatorUsername) {
         Long userId = task.getAssignedTo().getId();
         Long projectId = task.getProject().getId();
 
@@ -82,8 +86,12 @@ public class TaskService {
         Project project = projectService.getProjectById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
+        User creator = userService.findByUsername(creatorUsername)
+                .orElseThrow(() -> new RuntimeException("Creator not found"));
+
         task.setAssignedTo(user);
         task.setProject(project);
+        task.setCreatedBy(creator);
 
         Task savedTask = taskRepository.save(task);
 
