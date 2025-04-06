@@ -1,0 +1,51 @@
+.create-project-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.create-project-form h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #4e342e;
+}
+
+.create-project-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-project-form input,
+.create-project-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.create-project-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.create-project-form button {
+  background: linear-gradient(90deg, #7e57c2, #a1887f);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.create-project-form button:hover {
+  background: linear-gradient(90deg, #673ab7, #8d6e63);
+}
+
+.success-message {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+}

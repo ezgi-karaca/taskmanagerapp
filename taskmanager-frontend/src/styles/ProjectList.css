@@ -1,0 +1,49 @@
+.project-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.project-list h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #4e342e;
+}
+
+.project-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background-color: #fefefe;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.project-header {
+  cursor: pointer;
+}
+
+.project-header h3 {
+  margin: 0;
+  color: #5e35b1;
+}
+
+.project-header span {
+  color: #888;
+  font-size: 14px;
+}
+
+.task-list {
+  margin-top: 10px;
+  padding-left: 20px;
+  list-style-type: square;
+}
+
+.task-list li {
+  margin-bottom: 8px;
+}
+
+.assigned-to {
+  font-size: 0.9em;
+  color: #666;
+}
+
