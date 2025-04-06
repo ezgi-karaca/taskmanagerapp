@@ -40,7 +40,7 @@ public class AuthController {
                 )
         );
         final User user = userService.findByUsername(loginRequest.getUsername()).get();
-        return jwtUtil.generateToken(user.getUsername());
+        return jwtUtil.generateToken(user);
     }
 
 }
