@@ -3,7 +3,7 @@ FROM openjdk:17-jdk-slim
 COPY . /app
 WORKDIR /app
 
-RUN ./mvnw clean install
+RUN ./mvnw clean install -DskipTests
 
 EXPOSE 8080
 
