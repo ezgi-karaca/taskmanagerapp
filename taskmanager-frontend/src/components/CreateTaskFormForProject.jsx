@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../styles/CreateTaskForm.css";
+import API from "../api/api";
 
 function CreateTaskFormForProject({ projectId, onTaskCreated }) {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ function CreateTaskFormForProject({ projectId, onTaskCreated }) {
     const fetchEmployees = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8080/api/users/employees", {
+        const res = await API.get("/users/employees", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,7 +49,7 @@ function CreateTaskFormForProject({ projectId, onTaskCreated }) {
         project: { id: projectId },
       };
 
-      await axios.post("http://localhost:8080/api/tasks", payload, {
+      await API.post("/tasks", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

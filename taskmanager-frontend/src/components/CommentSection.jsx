@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../styles/CommentSection.css";
+import API from "../api/api";
 
 function CommentSection({ taskId }) {
   const [commentText, setCommentText] = useState("");
@@ -9,7 +9,8 @@ function CommentSection({ taskId }) {
   const fetchComments = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:8080/api/comments/task/${taskId}`, {
+      const res = await 
+      API.get(`/comments/task/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setComments(res.data);
@@ -26,8 +27,8 @@ function CommentSection({ taskId }) {
     if (!commentText.trim()) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
-        "http://localhost:8080/api/comments",
+      await API.post(
+        "/comments",
         {
           taskId: taskId,
           content: commentText,

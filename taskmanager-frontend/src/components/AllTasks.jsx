@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/TaskTable.css";
 import { toast } from "react-toastify";
+import API from "../api/api";
+
 
 function AllTasks() {
   const [tasks, setTasks] = useState([]);
@@ -16,13 +18,13 @@ function AllTasks() {
   const fetchAllTasks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8080/api/tasks", {
+      const res = await API.get("/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data);
 
       for (const task of res.data) {
-        const commentsRes = await axios.get(`http://localhost:8080/api/comments/task/${task.id}`, {
+        const commentsRes = await API.get(`/comments/task/${task.id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setComments((prev) => ({ ...prev, [task.id]: commentsRes.data }));
@@ -43,8 +45,8 @@ function AllTasks() {
     if (!commentContent.trim()) return;
 
     try {
-      await axios.post(
-        `http://localhost:8080/api/comments`,
+      await API.post(
+        `/comments`,
         { taskId, content: commentContent },
         { headers: { Authorization: `Bearer ${token}` } }
       );

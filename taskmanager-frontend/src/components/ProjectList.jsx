@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../styles/ProjectList.css";
 import CreateTaskFormForProject from "./CreateTaskFormForProject";
+import API from "../api/api";
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
@@ -18,7 +18,7 @@ function ProjectList() {
         const payload = JSON.parse(atob(token.split(".")[1]));
         setRole(payload.role);
 
-        const res = await axios.get("http://localhost:8080/api/projects", {
+        const res = await API.get("/projects", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -41,7 +41,7 @@ function ProjectList() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:8080/api/tasks/project/${projectId}`, {
+      const res = await API.get(`/tasks/project/${projectId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +62,7 @@ function ProjectList() {
   const refreshTasks = async (projectId) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:8080/api/tasks/project/${projectId}`, {
+      const res = await API.get(`/tasks/project/${projectId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

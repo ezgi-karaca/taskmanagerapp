@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Register.css";
-import axios from "axios";
 import { toast } from "react-toastify";
+import API from "../api/api";
 
 function Register() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Register() {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/auth/register", formData);
+      await API.post("/auth/register", formData);
       toast.success("🚀 Registration successful! Redirecting...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {

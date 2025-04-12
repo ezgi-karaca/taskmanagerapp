@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "../styles/CreateProjectForm.css";
+import API from "../api/api";
 
 function CreateProjectForm() {
   const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ function CreateProjectForm() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post("http://localhost:8080/api/projects", formData, {
+      await API.post("/projects", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

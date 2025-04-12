@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../styles/TaskTable.css";
 import { toast } from "react-toastify";
+import API from "../api/api";
 
 function MyTasks() {
   const [tasks, setTasks] = useState([]);
@@ -17,7 +17,7 @@ function MyTasks() {
   const fetchMyTasks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8080/api/tasks/my", {
+      const res = await API.get("/tasks/my", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -30,8 +30,8 @@ function MyTasks() {
       setStatuses(initialStatuses);
 
       for (const task of res.data) {
-        const commentsRes = await axios.get(
-          `http://localhost:8080/api/comments/task/${task.id}`,
+        const commentsRes = await API.get(
+          `/comments/task/${task.id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -50,8 +50,8 @@ function MyTasks() {
 
     try {
       if (newStatus === "COMPLETED") {
-        await axios.patch(
-          `http://localhost:8080/api/tasks/${taskId}/complete`,
+        await API.patch(
+          `/tasks/${taskId}/complete`,
           newComments[taskId] || "",
           {
             headers: {
@@ -62,8 +62,8 @@ function MyTasks() {
         );
         toast.success("Task marked as completed");
       } else if (newStatus === "IN_PROGRESS") {
-        await axios.patch(
-          `http://localhost:8080/api/tasks/${taskId}/in-progress`,
+        await API.patch(
+          `/tasks/${taskId}/in-progress`,
           null,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -87,8 +87,8 @@ function MyTasks() {
     if (!commentContent.trim()) return;
 
     try {
-      await axios.post(
-        `http://localhost:8080/api/comments`,
+      await API.post(
+        `/comments`,
         { taskId, content: commentContent },
         { headers: { Authorization: `Bearer ${token}` } }
       );

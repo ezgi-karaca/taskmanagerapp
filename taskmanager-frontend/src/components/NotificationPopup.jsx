@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import axios from "axios";
 import "../styles/NotificationPopup.css";
+import API from "../api/api";
 
 function NotificationPopup() {
   const [notifications, setNotifications] = useState([]);
@@ -13,7 +13,7 @@ function NotificationPopup() {
       if (!token) return;
 
       try {
-        const res = await axios.get("http://localhost:8080/api/notifications/me", {
+        const res = await API.get("/notifications/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

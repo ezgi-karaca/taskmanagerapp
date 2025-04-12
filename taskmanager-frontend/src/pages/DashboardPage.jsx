@@ -5,7 +5,6 @@ import Navbar from "../components/NavBar";
 import ProjectsPage from "./ProjectsPage";
 import TasksPage from "./TasksPage";
 import "../styles/DashboardPage.css";
-import axios from "axios";
 import {
   PieChart,
   Pie,
@@ -19,6 +18,7 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
+import API from "../api/api";
 
 function DashboardPage() {
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ function DashboardPage() {
     try {
       const endpoint =
         role === "MANAGER"
-          ? "http://localhost:8080/api/tasks"
-          : "http://localhost:8080/api/tasks/my";
+          ? "/tasks"
+          : "/tasks/my";
 
-      const res = await axios.get(endpoint, {
+      const res = await API.get(endpoint, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import "../styles/Navbar.css";
 import NotificationPopup from "./NotificationPopup";
+import API from "../api/api";
 
 function Navbar({ role, username, setActiveTab }) {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -14,7 +14,7 @@ function Navbar({ role, username, setActiveTab }) {
       if (!token) return;
 
       try {
-        const res = await axios.get("http://localhost:8080/api/notifications/me", {
+        const res = await API.get("/notifications/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -40,7 +40,7 @@ function Navbar({ role, username, setActiveTab }) {
     if (newState) {
       try {
         const token = localStorage.getItem("token");
-        await axios.patch("http://localhost:8080/api/notifications/mark-all-read", null, {
+        await API.patch("/notifications/mark-all-read", null, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setHasUnread(false);
