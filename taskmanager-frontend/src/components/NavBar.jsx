@@ -26,7 +26,7 @@ function Navbar({ role, username, setActiveTab }) {
     };
 
     fetchUnread();
-  }, []);
+  }, []); 
 
   const handleLogout = () => {
     localStorage.removeItem("token");
